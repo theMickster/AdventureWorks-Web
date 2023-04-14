@@ -1,35 +1,36 @@
 {
   "version": "0.2.0",
   "configurations": [
+  {
+    "type": "firefox",
+    "request": "launch",
+    "reAttach": true,
+    "name": "Firefox",
+    "url": "http://localhost:4269/",
+    "webRoot": "${workspaceFolder}",
+    "runtimeArgs":[
+      "--profile-directory=debug-aw-web"
+    ]
+  },
     {
       "name": "Edge",
       "request": "launch",
       "type": "msedge",
-      "url": "http://127.0.0.1:4269/",
+      "url": "http://localhost:4269/",
       "webRoot": "${workspaceFolder}",
-      "sourceMaps": true,
-      "sourceMapPathOverrides": {
-        "webpack:/*": "${webRoot}/*",
-        "/./*": "${webRoot}/*",
-        "/src/*": "${webRoot}/src/*",
-        "/*": "*",
-        "/./~/*": "${workspaceFolder}/node_modules/*"
-      }
+      "runtimeArgs":[
+        "--profile-directory=debug-aw-web"
+      ]
     },
     {
+      "name": "Chrome",
       "type": "chrome",
       "request": "launch",
-      "name": "Chrome",
-      "url": "http://127.0.0.1:4269/",
+      "url": "http://localhost:4269/",
       "webRoot": "${workspaceFolder}",
-      "sourceMaps": true,
-      "sourceMapPathOverrides": {
-        "webpack:/*": "${webRoot}/*",
-        "/./*": "${webRoot}/*",
-        "/src/*": "${webRoot}/src/*",
-        "/*": "*",
-        "/./~/*": "${workspaceFolder}/node_modules/*"
-      }
+      "runtimeArgs":[
+        "--profile-directory=debug-aw-web"
+      ]
     }
   ]
 }

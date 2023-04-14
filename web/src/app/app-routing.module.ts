@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PlaygroundComponent } from './playground/playground.component';
+import { PlaygroundComponent } from './public/playground/playground.component';
 import { PageNotFoundComponent } from './public/oops/page-not-found.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
-    path: 'playground',
-    component: PlaygroundComponent
+    path: '',
+    component: HomeComponent
+  }
+  ,{
+    path: 'public',
+    loadChildren: () => import('./public/public.module').then(module => module.PublicModule)
   },
   {
     path: '**',
