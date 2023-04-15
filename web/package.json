@@ -7,7 +7,7 @@
     "e2e": "ng e2e --reporter junit",
     "lint": "ng lint",
     "prod-build-dev": "ng build --configuration production  --localize",
-    "start": "ng serve",
+    "start": "ng serve --host=127.0.0.1",
     "test": "ng test",
     "test-headless": "ng test --watch=false --browsers=ChromeHeadless --code-coverage=true",
     "watch": "ng build --watch --configuration development",

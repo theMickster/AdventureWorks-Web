@@ -1,6 +1,13 @@
-<h1>Welcome to Adventure Works Cycling!</h1>
-<router-outlet></router-outlet>
+<header>
+  <app-header></app-header>
+</header>
+<main>
+  <div class="container">
 
-<div class="container">
-  <fa-icon [icon]="faCoffee"></fa-icon>
-</div>
+    <router-outlet></router-outlet>
+
+  </div>
+</main>
+<footer>
+  <app-footer></app-footer>
+</footer>
