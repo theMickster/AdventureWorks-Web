@@ -1,0 +1,57 @@
+trigger:
+- develop
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  nodeVersion: '18.14.1'
+
+stages:
+- stage: Build
+  displayName: 'Build Adventure Works Angular Web App'
+
+  jobs:
+  - job: BuildAdventureWorksAngularWebApp
+    displayName: 'Build Adventure Works Angular Web App'
+
+    steps:  
+    - script: set
+      displayName: 'Print All YAML Build Pipleline Variables'
+
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '$(nodeVersion)'
+      displayName: 'Install Node.js'
+
+    - task: Cache@2
+      inputs:
+        key: 'npm | "$(Agent.OS)" | package-lock.json'
+        restoreKeys: |
+          npm | "$(Agent.OS)"
+        path: $(Pipeline.Workspace)/.npm
+      displayName: Cache npm
+
+    - bash: npm ci --cache $(Pipeline.Workspace)/.npm
+      displayName: 'Install Dependencies'
+
+    - script: |
+        npm install -g @angular/cli
+        npm install
+        ng build --configuration production
+      displayName: 'Angular CLI Install and Build Angular App'
+
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/dist/adventure-works'
+        includeRootFolder: true
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        replaceExistingArchive: true
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '''$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'''
+        ArtifactName: 'drop'
+        publishLocation: 'FilePath'
+        TargetPath: 'Container'
