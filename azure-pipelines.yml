@@ -33,6 +33,21 @@ stages:
       displayName: 'Angular CLI Install and Build Angular App'
       workingDirectory: '$(Build.SourcesDirectory)'
 
+    - task: Npm@1
+      inputs:
+        command: 'custom'
+        customCommand: 'run test-headless'
+        workingDir: 'web'
+      displayName: 'Run Unit Tests'
+
+    - task: PublishTestResults@2
+      displayName: 'Publish Angular test results'
+      condition: succeededOrFailed()
+      inputs:
+        searchFolder: $(System.DefaultWorkingDirectory)
+        testRunTitle: Angular
+        testResultsFormat: JUnit
+        testResultsFiles: "**/TESTS*.xml"
 
     - task: ArchiveFiles@2
       displayName: 'Archive (zip) application files'
@@ -42,6 +57,13 @@ stages:
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
         replaceExistingArchive: true
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        ArtifactName: 'drop'
+        TargetPath: 'Container'
+
 
 
     # - script: |
@@ -55,9 +77,3 @@ stages:
     #     echo "$(Build.SourcesDirectory)"
     #     echo "=== System Working Directory slash dist ==="
     #     echo "$(System.DefaultWorkingDirectory)/dist"
-
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-        ArtifactName: 'drop'
-        TargetPath: 'Container'
