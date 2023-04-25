@@ -48,7 +48,7 @@ stages:
     - task: ArchiveFiles@2
       displayName: 'Archive (zip) application files'
       inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/dist/adventure-works'
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/web/dist/adventure-works'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
