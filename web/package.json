@@ -9,7 +9,7 @@
     "prod-build-dev": "ng build --configuration production  --localize",
     "start": "ng serve --host=127.0.0.1",
     "test": "ng test",
-    "test-headless": "ng test --watch=false --browsers=ChromeHeadless --code-coverage=true",
+    "test-headless": "ng test --watch=false --browsers=ChromeHeadless --code-coverage=true --reporters=junit,progress --karma-config=karma.conf.js",
     "watch": "ng build --watch --configuration development",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
@@ -33,6 +33,8 @@
     "@ng-bootstrap/ng-bootstrap": "^14.0.1",
     "@popperjs/core": "^2.11.7",
     "bootstrap": "^5.2.3",
+    "karma-junit-reporter": "^2.0.1",
+    "puppeteer": "^19.11.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.5.0",
     "zone.js": "~0.12.0"
