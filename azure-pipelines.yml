@@ -33,6 +33,18 @@ stages:
       displayName: 'Angular CLI Install and Build Angular App'
       workingDirectory: '$(Build.SourcesDirectory)'
 
+    - script: |
+        echo "Structure of work folder of this pipeline:"
+        tree $(Agent.WorkFolder)/1        
+        echo "=== Build.ArtifactStagingDirectory ===" 
+        echo "$(Build.ArtifactStagingDirectory)"        
+        echo "=== Build.BinariesDirectory ===" 
+        echo "$(Build.BinariesDirectory)"
+        echo "=== Build.SourcesDirectory ==="
+        echo "$(Build.SourcesDirectory)"
+        echo "=== System Working Directory slash dist ==="
+        echo "$(System.DefaultWorkingDirectory)/dist"
+
     - task: ArchiveFiles@2
       displayName: 'Archive (zip) application files'
       inputs:
