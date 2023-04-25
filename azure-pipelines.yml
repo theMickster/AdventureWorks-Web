@@ -47,7 +47,7 @@ stages:
         searchFolder: $(System.DefaultWorkingDirectory)
         testRunTitle: Angular
         testResultsFormat: JUnit
-        testResultsFiles: "**/TESTS*.xml"
+        testResultsFiles: "**/adventureWorksWeb_unitTestCodeCoverage.xml"
 
     - task: ArchiveFiles@2
       displayName: 'Archive (zip) application files'
