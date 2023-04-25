@@ -35,14 +35,13 @@ stages:
     - task: ArchiveFiles@2
       inputs:
         rootFolderOrFile: '$(System.DefaultWorkingDirectory)/dist/adventure-works'
-        includeRootFolder: true
+        includeRootFolder: false
         archiveType: 'zip'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/AdventureWorksWebApp_$(Build.BuildId).zip'
         replaceExistingArchive: true
 
     - task: PublishBuildArtifacts@1
       inputs:
-        PathtoPublish: '''$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'''
+        PathtoPublish: '''$(Build.ArtifactStagingDirectory)/AdventureWorksWebApp_$(Build.BuildId).zip'''
         ArtifactName: 'drop'
-        publishLocation: 'FilePath'
         TargetPath: 'Container'
