@@ -63,7 +63,7 @@ stages:
         searchFolder: '$(Build.SourcesDirectory)/web/coverage'
         testRunTitle: Angular
         testResultsFormat: JUnit
-        testResultsFiles: "**/TESTS_adventureWorksWeb_unitTestResults*"
+        testResultsFiles: "**/TESTS-**.xml"
 
     - task: ArchiveFiles@2
       displayName: 'Archive (zip) application files'
