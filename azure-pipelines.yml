@@ -1,6 +1,5 @@
 trigger:
 - develop
-- feature/AzureDevOps/*
 
 pool:
   vmImage: ubuntu-latest
@@ -40,22 +39,6 @@ stages:
         workingDir: 'web'
       displayName: 'Run Unit Tests'
 
-    # - script: |
-    #     echo "Structure of work folder of this pipeline:"
-    #     tree $(Agent.WorkFolder)/1        
-    #     echo "=== Build.ArtifactStagingDirectory ===" 
-    #     echo "$(Build.ArtifactStagingDirectory)"        
-    #     echo "=== Build.BinariesDirectory ===" 
-    #     echo "$(Build.BinariesDirectory)"
-    #     echo "=== Build.SourcesDirectory ==="
-    #     echo "$(Build.SourcesDirectory)"
-    #     echo "=== System Working Directory slash dist ==="
-    #     echo "$(System.DefaultWorkingDirectory)/dist"
-
-    - script: |
-        echo "=== Build Sources -- Test Coverage file ==="
-        echo "$(Build.SourcesDirectory)/web/coverage"
-
     - task: PublishTestResults@2
       displayName: 'Publish Angular test results'
       condition: succeededOrFailed()
@@ -79,7 +62,3 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
         ArtifactName: 'drop'
         TargetPath: 'Container'
-
-
-
-
