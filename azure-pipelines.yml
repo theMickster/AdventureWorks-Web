@@ -40,26 +40,30 @@ stages:
         workingDir: 'web'
       displayName: 'Run Unit Tests'
 
+    # - script: |
+    #     echo "Structure of work folder of this pipeline:"
+    #     tree $(Agent.WorkFolder)/1        
+    #     echo "=== Build.ArtifactStagingDirectory ===" 
+    #     echo "$(Build.ArtifactStagingDirectory)"        
+    #     echo "=== Build.BinariesDirectory ===" 
+    #     echo "$(Build.BinariesDirectory)"
+    #     echo "=== Build.SourcesDirectory ==="
+    #     echo "$(Build.SourcesDirectory)"
+    #     echo "=== System Working Directory slash dist ==="
+    #     echo "$(System.DefaultWorkingDirectory)/dist"
+
     - script: |
-        echo "Structure of work folder of this pipeline:"
-        tree $(Agent.WorkFolder)/1        
-        echo "=== Build.ArtifactStagingDirectory ===" 
-        echo "$(Build.ArtifactStagingDirectory)"        
-        echo "=== Build.BinariesDirectory ===" 
-        echo "$(Build.BinariesDirectory)"
-        echo "=== Build.SourcesDirectory ==="
-        echo "$(Build.SourcesDirectory)"
-        echo "=== System Working Directory slash dist ==="
-        echo "$(System.DefaultWorkingDirectory)/dist"
+        echo "=== Build Sources -- Test Coverage file ==="
+        echo "$(Build.SourcesDirectory)/web/testresults/coverage"
 
     - task: PublishTestResults@2
       displayName: 'Publish Angular test results'
       condition: succeededOrFailed()
       inputs:
-        searchFolder: $(System.DefaultWorkingDirectory)
+        searchFolder: '$(Build.SourcesDirectory)/web/testresults/coverage'
         testRunTitle: Angular
         testResultsFormat: JUnit
-        testResultsFiles: "**/adventureWorksWeb_unitTestCodeCoverage.xml"
+        testResultsFiles: "**/TESTS_adventureWorksWeb_unitTestResults*"
 
     - task: ArchiveFiles@2
       displayName: 'Archive (zip) application files'
