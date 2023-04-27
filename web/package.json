@@ -33,6 +33,7 @@
     "@ng-bootstrap/ng-bootstrap": "^14.0.1",
     "@popperjs/core": "^2.11.7",
     "bootstrap": "^5.2.3",
+    "karma-coverage-istanbul-reporter": "^3.0.3",
     "karma-junit-reporter": "^2.0.1",
     "puppeteer": "^19.11.1",
     "rxjs": "~7.8.0",
