@@ -54,13 +54,13 @@ stages:
 
     - script: |
         echo "=== Build Sources -- Test Coverage file ==="
-        echo "$(Build.SourcesDirectory)/web/testresults/coverage"
+        echo "$(Build.SourcesDirectory)/web/coverage"
 
     - task: PublishTestResults@2
       displayName: 'Publish Angular test results'
       condition: succeededOrFailed()
       inputs:
-        searchFolder: '$(Build.SourcesDirectory)/web/testresults/coverage'
+        searchFolder: '$(Build.SourcesDirectory)/web/coverage'
         testRunTitle: Angular
         testResultsFormat: JUnit
         testResultsFiles: "**/TESTS_adventureWorksWeb_unitTestResults*"
