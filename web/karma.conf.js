@@ -39,14 +39,14 @@ module.exports = function (config) {
     },
     junitReporter: {
       outputDir: "/testresults/junit",
-      outputFile: "adventureWorksWeb_unitTestResults.xml",
+      outputFile: "TESTS_adventureWorksWeb_unitTestResults.xml",
       useBrowserName: true,
     },
     coverageReporter: {
       type: "cobertura",
       dir: "testresults",
       subdir: "coverage",
-      file: "adventureWorksWeb_unitTestCodeCoverage.xml",
+      file: "TESTS_adventureWorksWeb_unitTestResults.xml",
     },
     reporters: ["progress", "kjhtml", "coverage", "junit"],
     port: 9877,
