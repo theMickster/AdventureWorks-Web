@@ -1,0 +1,64 @@
+trigger:
+- develop
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  nodeVersion: '18.14.1'
+
+stages:
+- stage: Build
+  displayName: 'Build Adventure Works Angular Web App'
+
+  jobs:
+  - job: BuildAdventureWorksAngularWebApp
+    displayName: 'Build Adventure Works Angular Web App'
+
+    steps:  
+    - script: set
+      displayName: 'Print All YAML Build Pipleline Variables'
+
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '$(nodeVersion)'
+      displayName: 'Install Node.js'
+
+    - script: |
+        cd web/
+        npm install -g @angular/cli
+        npm install
+        ng build --configuration production
+      displayName: 'Angular CLI Install and Build Angular App'
+      workingDirectory: '$(Build.SourcesDirectory)'
+
+    - task: Npm@1
+      inputs:
+        command: 'custom'
+        customCommand: 'run test-headless'
+        workingDir: 'web'
+      displayName: 'Run Unit Tests'
+
+    - task: PublishTestResults@2
+      displayName: 'Publish Angular test results'
+      condition: succeededOrFailed()
+      inputs:
+        searchFolder: '$(Build.SourcesDirectory)/web/coverage'
+        testRunTitle: Angular
+        testResultsFormat: JUnit
+        testResultsFiles: "**/TESTS-**.xml"
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive (zip) application files'
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/web/dist/adventure-works'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        replaceExistingArchive: true
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        ArtifactName: 'drop'
+        TargetPath: 'Container'
