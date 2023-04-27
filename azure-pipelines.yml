@@ -40,6 +40,18 @@ stages:
         workingDir: 'web'
       displayName: 'Run Unit Tests'
 
+    - script: |
+        echo "Structure of work folder of this pipeline:"
+        tree $(Agent.WorkFolder)/1        
+        echo "=== Build.ArtifactStagingDirectory ===" 
+        echo "$(Build.ArtifactStagingDirectory)"        
+        echo "=== Build.BinariesDirectory ===" 
+        echo "$(Build.BinariesDirectory)"
+        echo "=== Build.SourcesDirectory ==="
+        echo "$(Build.SourcesDirectory)"
+        echo "=== System Working Directory slash dist ==="
+        echo "$(System.DefaultWorkingDirectory)/dist"
+
     - task: PublishTestResults@2
       displayName: 'Publish Angular test results'
       condition: succeededOrFailed()
@@ -47,7 +59,7 @@ stages:
         searchFolder: $(System.DefaultWorkingDirectory)
         testRunTitle: Angular
         testResultsFormat: JUnit
-        testResultsFiles: "**/TESTS*.xml"
+        testResultsFiles: "**/adventureWorksWeb_unitTestCodeCoverage.xml"
 
     - task: ArchiveFiles@2
       displayName: 'Archive (zip) application files'
@@ -66,14 +78,4 @@ stages:
 
 
 
-    # - script: |
-    #     echo "Structure of work folder of this pipeline:"
-    #     tree $(Agent.WorkFolder)/1        
-    #     echo "=== Build.ArtifactStagingDirectory ===" 
-    #     echo "$(Build.ArtifactStagingDirectory)"        
-    #     echo "=== Build.BinariesDirectory ===" 
-    #     echo "$(Build.BinariesDirectory)"
-    #     echo "=== Build.SourcesDirectory ==="
-    #     echo "$(Build.SourcesDirectory)"
-    #     echo "=== System Working Directory slash dist ==="
-    #     echo "$(System.DefaultWorkingDirectory)/dist"
+
